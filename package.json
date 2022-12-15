@@ -1,8 +1,13 @@
 {
 	"name": "openai-powered-snippet",
-	"displayName": "code read",
+	"displayName": "openai powered snippet",
 	"description": "openai-powered-snippet",
 	"version": "0.0.1",
+	"publisher":"faaydemir",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/faaydemir/openai-powered-snippets.git"
+	},
 	"engines": {
 		"vscode": "^1.62.0"
 	},
