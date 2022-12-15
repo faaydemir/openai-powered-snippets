@@ -5,6 +5,7 @@ import askToOpenAI from "./openai-client";
 import Variable from "./variable";
 import Fn from "./fn";
 
+const DEFAULT_COMMAND_HANDLER = 'replace'
 export class VariableContext {
     constructor() {
         this.variables = {};
@@ -62,6 +63,7 @@ export class CommandRunnerContext {
 
         let functionName;
         let args = {};
+        handler = handler ?? DEFAULT_COMMAND_HANDLER;
         if (typeof handler === 'string' || handler instanceof String) {
             functionName = handler;
         } else {
