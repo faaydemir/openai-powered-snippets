@@ -1,8 +1,13 @@
 export function getValueWithKey(key, variables) {
-    const keys = key.split('.');
-    let value = variables;
-    for (const k of keys) {
-        value = value[k];
+    try {
+        const keys = key.split('.');
+        let value = variables;
+        for (const k of keys) {
+            value = value[k];
+        }
+        return value;
     }
-    return value;
+    catch {
+        return key;
+    }
 }
