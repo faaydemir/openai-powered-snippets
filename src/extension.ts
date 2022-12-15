@@ -6,6 +6,7 @@ import GenericWebViewPanel from './vscode-functions/webview-panel';
 import importSnippets from './core/importSnippets';
 import getSelectedText from './vscode-functions/get-selected-text';
 import getBaseFolder from './vscode-functions/get-base-folder';
+import getFileNameAndExtension from './core/utils/path';
 
 export let commandRunnerContext: CommandRunnerContext;
 
@@ -31,7 +32,12 @@ function initEvents() {
 			return;
 		}
 		//TODO: make lazy
-		commandRunnerContext.setSystemVariable(new Variable("fileName", e.document.fileName));
+		commandRunnerContext.setSystemVariable(new Variable("language", e.document.languageId));
+		commandRunnerContext.setSystemVariable(new Variable("filePath", e.document.fileName));
+		const { extension, fileName,fileFolder } = getFileNameAndExtension(e.document.fileName);
+		commandRunnerContext.setSystemVariable(new Variable("fileName", fileName));
+		commandRunnerContext.setSystemVariable(new Variable("fileExtension", extension));
+		commandRunnerContext.setSystemVariable(new Variable("fileFolder", fileFolder));
 	});
 
 	vscode.window.onDidChangeTextEditorSelection(async (e) => {
