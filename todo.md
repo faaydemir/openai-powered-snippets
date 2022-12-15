@@ -2,13 +2,13 @@
 * write readme
 * write sample snippets
 * add github action
-* add shortcut
-
+* investigate writeConsole multiple channel bug
 ------  
 * make system variables lazy if possible
 * unit test
 
 ## TEST
+* add shortcut
 * accept string value in command handler args
 * set default handler
 

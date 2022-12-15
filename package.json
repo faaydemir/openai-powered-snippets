@@ -38,6 +38,12 @@
 				"title": "OpenAI Snippet"
 			}
 		],
+		"keybindings": [
+            {
+                "command": "openaipoweredsnip.run",
+                "key": "ctrl+o ctrl+a"
+            }
+        ],
 		"configuration": {
 			"title": "openaipoweredsnip",
 			"type": "object",
