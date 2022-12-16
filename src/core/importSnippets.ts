@@ -3,10 +3,10 @@ import * as vscode from 'vscode';
 import Command from './command';
 import Fn from './fn';
 import Variable from './variable';
-import { commandRunnerContext, extensionConfig } from '../extension';
+import { commandRunnerContext } from '../extension';
 import getBaseFolder from '../vscode-functions/get-base-folder';
 
-export default async function importSnippets() {
+export default async function importSnippets(snippetFiles) {
 	async function readFile(file: string) {
 		const document = await vscode.workspace.openTextDocument(file);
 		let fileContent = document.getText();
@@ -64,10 +64,10 @@ export default async function importSnippets() {
 	}
 
 	function getFilesFromConfig(): Array<string> {
-		if (!extensionConfig['snipFiles']) {
+		if (!snippetFiles) {
 			return [];
 		}
-		return extensionConfig['snipFiles'].split(";");
+		return snippetFiles.split(";");
 	}
 	function searchForSnipFilesUnderVsCodeFolder(): Array<string> {
 		let validSnipFileName: Array<string> = ['openaisnip.js', 'openaisnip.json'];
@@ -77,6 +77,7 @@ export default async function importSnippets() {
 	}
 
 	const allSnipFiles = searchForSnipFilesUnderVsCodeFolder().concat(getFilesFromConfig());
+	console.log(allSnipFiles);
 	allSnipFiles.forEach(sf => {
 		importFile(sf);
 	});

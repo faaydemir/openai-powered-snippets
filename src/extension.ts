@@ -20,10 +20,12 @@ export function activate(context: vscode.ExtensionContext) {
 		});
 	}
 
-	initConfiguration();
+	const config = initConfiguration();
 	//TODO: make baseFolder lazy
 	commandRunnerContext.setSystemVariable(new Variable(systemVariableNames.baseFolder, getBaseFolder()));
-	importSnippets();
+	
+	setOpenAIApiKey(config.get('openAIToken'));
+	importSnippets(config.get('snippetFiles'));
 	initVsCodeCommands(context);
 	initEvents();
 }
@@ -70,9 +72,6 @@ function initVsCodeCommands(context: vscode.ExtensionContext) {
 export let extensionConfig: { [key: string]: string | undefined; } = {};
 function initConfiguration() {
 
-	const config = vscode.workspace.getConfiguration('openaipoweredsnip');
-	setOpenAIApiKey(config.get('openAIToken'));
-
 	vscode.workspace.onDidChangeConfiguration((event: vscode.ConfigurationChangeEvent) => {
 		if (event.affectsConfiguration('"openaipoweredsnip.openAIToken')) {
 			const config = vscode.workspace.getConfiguration('openaipoweredsnip');
@@ -80,10 +79,10 @@ function initConfiguration() {
 
 		} else if (event.affectsConfiguration('openaipoweredsnip.snippetFiles')) {
 			const config = vscode.workspace.getConfiguration('openaipoweredsnip');
-			extensionConfig['snipFiles'] = config.get('snippetFiles');
-			importSnippets();
+			importSnippets(config.get('snippetFiles'));
 		}
 	});
+	return vscode.workspace.getConfiguration('openaipoweredsnip');
 }
 
 
