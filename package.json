@@ -45,7 +45,7 @@
             }
         ],
 		"configuration": {
-			"title": "OpenAI Powered Snip",
+			"title": "OpenAI Powered Snippets",
 			"type": "object",
 			"properties": {
 				"openaipoweredsnip.openAIToken": {
