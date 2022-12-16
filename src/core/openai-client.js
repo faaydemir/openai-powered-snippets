@@ -12,8 +12,8 @@ let openai;
 
 export class OpenAIAnswer {
     constructor(fullText) {
-        this.code = fullText;
-        this.fullText = fullText;
+        this.code = fullText + "\n";
+        this.fullText = fullText + "\n";
     }
 }
 

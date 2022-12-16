@@ -4,6 +4,7 @@ import { getValueWithKey } from "./utils/object";
 import askToOpenAI from "./openai-client";
 import Variable from "./variable";
 import Fn from "./fn";
+import { systemVariableNames } from "./pre-defined-variables";
 
 const DEFAULT_COMMAND_HANDLER = 'replace'
 export class VariableContext {
@@ -105,9 +106,10 @@ export class CommandRunnerContext {
         const system = this.systemVariableContext.get();
         const user = this.userVariableContext.get(system);
         const question = command.prepare(system, user);
+        this.setSystemVariable(new Variable(systemVariableNames.question, answer.fullText));
         const answer = await askToOpenAI(question);
-        this.setSystemVariable(new Variable("answer", answer.fullText));
-        this.setSystemVariable(new Variable("answerCode", answer.code));
+        this.setSystemVariable(new Variable(systemVariableNames.answer, answer.fullText));
+        this.setSystemVariable(new Variable(systemVariableNames.answerCode, answer.code));
         this.runHandler(command.handler);
     }
 }

@@ -2,6 +2,7 @@ export const systemVariableNames= {
     selection:"selection",
     question:"question",
     answer:"answer",
+    answerCode:"answerCode",
     language:"language",
     baseFolder:"baseFolder",
     fileName:"fileName",
