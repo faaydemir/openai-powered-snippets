@@ -106,7 +106,7 @@ export class CommandRunnerContext {
         const system = this.systemVariableContext.get();
         const user = this.userVariableContext.get(system);
         const question = command.prepare(system, user);
-        this.setSystemVariable(new Variable(systemVariableNames.question, answer.fullText));
+        this.setSystemVariable(new Variable(systemVariableNames.question, question));
         const answer = await askToOpenAI(question);
         this.setSystemVariable(new Variable(systemVariableNames.answer, answer.fullText));
         this.setSystemVariable(new Variable(systemVariableNames.answerCode, answer.code));
