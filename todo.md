@@ -1,6 +1,6 @@
 # TODO
-* write readme
-* write sample snippets
+* modify readme
+* write and add sample snippets
 * add github action
 * investigate writeConsole multiple channel bug
 ------  
