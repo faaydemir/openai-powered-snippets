@@ -45,7 +45,7 @@
             }
         ],
 		"configuration": {
-			"title": "openaipoweredsnip",
+			"title": "OpenAI Powered Snip",
 			"type": "object",
 			"properties": {
 				"openaipoweredsnip.openAIToken": {
@@ -56,8 +56,8 @@
 				},
 				"openaipoweredsnip.snippetFiles": {
 					"type": "string",
-					"default": true,
-					"description": "Path for user defined snippet files. For multiple path seperate with ';' C:\\MySnipFolder1\\snip.js;C:\\MySnipFolder2\\snip.js",
+					"default": "",
+					"description": "Path for user defined snippet files. For multiple path seperate with ';'  C:\\MySnipFolder1\\snip.js;C:\\MySnipFolder2\\snip.js",
 					"order": 2
 				}
 			}
