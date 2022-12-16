@@ -78,6 +78,11 @@ module.exports = {
     ]
 };
 ```
+
+Samples:
+
+https://github.com/faaydemir/openai-powered-snippets/tree/main/sample-snippet-files
+
 ## Creating Command
 ### name 
 Requiered. Name of command can ve whatever you want
