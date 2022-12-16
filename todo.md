@@ -8,12 +8,12 @@
 * unit test
 
 ## TEST
-* add shortcut
-* accept string value in command handler args
-* set default handler
 
 
 ## DONE
+* accept string value in command handler args
+* set default handler
+* add shortcut
 * add missing system variables
 
    | Variable Name        | Status |
