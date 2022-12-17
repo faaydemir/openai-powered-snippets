@@ -6,6 +6,7 @@
 ------  
 * make system variables lazy if possible
 * unit test
+* check if there is a vscode setting type for secrets or key
 
 ## TEST
 
