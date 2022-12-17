@@ -19,6 +19,11 @@ export class VariableContext {
     set(variable) {
         this.variables[variable.name] = variable;
     }
+    
+    /**
+     * return variable values
+     * @param  {} params=undefined
+     */
     get(params = undefined) {
         return Object.keys(this.variables).reduce(
             (agg, key) => {
@@ -35,9 +40,13 @@ export class FunctionContext {
         this.functions = {};
     }
 
+    /**
+     * @param {Fn} fn
+    - */
     set(fn) {
         this.functions[fn.name] = fn;
     }
+
     /**
      * @param  {string} functionName
      * @returns {Fn}
@@ -81,24 +90,42 @@ export class CommandRunnerContext {
             ...variables
         });
     }
+    
+    /**
+     * @param  {Variable} variable
+     */
     setSystemVariable(variable) {
         this.systemVariableContext.set(variable);
     }
+    
+    /**
+     * @param  {Variable} variable
+     */
     setUserVariable(variable) {
         this.userVariableContext.set(variable);
     }
-    addCommand(command) {
-        this.commands[command.name] = command;
-    }
-    getCommands() {
-        return Object.values(this.commands);
-    }
+
     /**
      * @param  {Fn} fn
      */
     setFunction(fn) {
         this.functionContext.set(fn);
     }
+
+    /**
+     * @param  {Command} command
+     */
+    addCommand(command) {
+        this.commands[command.name] = command;
+    }
+
+    /**
+     * @returns  {Command[]} commands
+     */
+    getCommands() {
+        return Object.values(this.commands);
+    }
+
     /**
      * @param  {Command} command
      */

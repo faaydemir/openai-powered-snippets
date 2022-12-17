@@ -13,8 +13,12 @@ export default class Fn {
         this.name = name;
     }
     run(...args) {
-        this._fn(...args);
+        return this._fn(...args);
     }
+
+    /**
+     * @param  {Function} fn
+     */
     static fromString(fnString) {
         const { name, fn } = createFunctionFromString(fnString);
         return new Fn(name, fn);
