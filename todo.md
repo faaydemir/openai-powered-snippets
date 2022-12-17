@@ -1,6 +1,7 @@
 # TODO
 * modify readme
 * write and add sample snippets
+* implement json import
 * add github action
 * investigate writeConsole multiple channel bug
 ------  
@@ -10,7 +11,7 @@
 * check if there is a vscode setting type for secrets or key
 * add checks > isKeySet, isFileSet etc
 * make improvements on error handling
-* add command decorator to
+* add command handler decorator to
   * handle errors
   * check inputs
   * ...
