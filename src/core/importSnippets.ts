@@ -8,6 +8,7 @@ import getBaseFolder from '../vscode-functions/get-base-folder';
 import log from '../log';
 
 export default async function importSnippets(snippetFiles) {
+
 	async function readFile(file: string) {
 		const document = await vscode.workspace.openTextDocument(file);
 		let fileContent = document.getText();
@@ -40,10 +41,27 @@ export default async function importSnippets(snippetFiles) {
 		}
 	}
 	async function importJsonSnipFile(snipFile: string) {
+		//TODO: !!not complete implemented!!
 		const document = await vscode.workspace.openTextDocument(snipFile);
 		let userDefinitions = JSON.parse(document.getText());
+		
+		if (userDefinitions.commands) {
+			userDefinitions.commands.forEach((command: { name: any; template: any; handler: any; }) => {
+				commandRunnerContext.addCommand(new Command(
+					command.name,
+					command.template,
+					command.handler
+				));
+			});
+		}
+		if (userDefinitions.variables) {
+			userDefinitions.variables.forEach((variable: { name: any; value: any; }) => {
+				commandRunnerContext.setUserVariable(new Variable(variable.name, variable.value));
+			});
+		}
 	}
 	function checkFileExist(snipFile: string): Boolean {
+		//TODO: implement
 		return true;
 	}
 	function getFileType(snipFile: string): string | undefined {
