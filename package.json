@@ -22,25 +22,25 @@
 		"menus": {
 			"editor/context": [
 				{
-					"command": "openaipoweredsnip.run",
-					"group": "openaipoweredsnip-menu-group@1"
+					"command": "openaipoweredsnippet.run",
+					"group": "openaipoweredsnippet-menu-group@1"
 				}
 			],
 			"commandPalette": [
 				{
-					"command": "openaipoweredsnip.run"
+					"command": "openaipoweredsnippet.run"
 				}
 			]
 		},
 		"commands": [
 			{
-				"command": "openaipoweredsnip.run",
+				"command": "openaipoweredsnippet.run",
 				"title": "OpenAI Snippet"
 			}
 		],
 		"keybindings": [
             {
-                "command": "openaipoweredsnip.run",
+                "command": "openaipoweredsnippet.run",
                 "key": "ctrl+o ctrl+a"
             }
         ],
@@ -48,13 +48,13 @@
 			"title": "OpenAI Powered Snippets",
 			"type": "object",
 			"properties": {
-				"openaipoweredsnip.openAIToken": {
+				"openaipoweredsnippet.openAIToken": {
 					"type": "string",
 					"default": "",
 					"description": "Your openai token",
 					"order": 1
 				},
-				"openaipoweredsnip.snippetFiles": {
+				"openaipoweredsnippet.snippetFiles": {
 					"type": "string",
 					"default": "",
 					"description": "Path for user defined snippet files. For multiple path seperate with ';'  C:\\MySnipFolder1\\snip.js;C:\\MySnipFolder2\\snip.js",

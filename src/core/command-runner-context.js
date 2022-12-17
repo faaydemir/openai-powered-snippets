@@ -108,6 +108,9 @@ export class CommandRunnerContext {
         const question = command.prepare(system, user);
         this.setSystemVariable(new Variable(systemVariableNames.question, question));
         const answer = await askToOpenAI(question);
+        if (!answer) {
+            throw Error("Could not get response from OpenAI.");
+        }
         this.setSystemVariable(new Variable(systemVariableNames.answer, answer.fullText));
         this.setSystemVariable(new Variable(systemVariableNames.answerCode, answer.code));
         this.runHandler(command.handler);

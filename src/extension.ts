@@ -53,7 +53,7 @@ function initEvents() {
 
 }
 function initVsCodeCommands(context: vscode.ExtensionContext) {
-	const commandExplain = vscode.commands.registerCommand('openaipoweredsnip.run', async () => {
+	const commandExplain = vscode.commands.registerCommand('openaipoweredsnippet.run', async () => {
 
 		commandRunnerContext.setSystemVariable(new Variable(systemVariableNames.extensionUri, context.extensionUri));
 
@@ -71,18 +71,18 @@ function initVsCodeCommands(context: vscode.ExtensionContext) {
 }
 export let extensionConfig: { [key: string]: string | undefined; } = {};
 function initConfiguration() {
-
+	
 	vscode.workspace.onDidChangeConfiguration((event: vscode.ConfigurationChangeEvent) => {
-		if (event.affectsConfiguration('"openaipoweredsnip.openAIToken')) {
-			const config = vscode.workspace.getConfiguration('openaipoweredsnip');
+		if (event.affectsConfiguration('"openaipoweredsnippet.openAIToken')) {
+			const config = vscode.workspace.getConfiguration('openaipoweredsnippet');
 			setOpenAIApiKey(config.get('openAIToken') as string | undefined);
 
-		} else if (event.affectsConfiguration('openaipoweredsnip.snippetFiles')) {
-			const config = vscode.workspace.getConfiguration('openaipoweredsnip');
+		} else if (event.affectsConfiguration('openaipoweredsnippet.snippetFiles')) {
+			const config = vscode.workspace.getConfiguration('openaipoweredsnippet');
 			importSnippets(config.get('snippetFiles'));
 		}
 	});
-	return vscode.workspace.getConfiguration('openaipoweredsnip');
+	return vscode.workspace.getConfiguration('openaipoweredsnippet');
 }
 
 
