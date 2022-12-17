@@ -6,7 +6,7 @@ import Variable from "./variable";
 import Fn from "./fn";
 import { systemVariableNames } from "./pre-defined-variables";
 
-const DEFAULT_COMMAND_HANDLER = 'replace'
+const DEFAULT_COMMAND_HANDLER = 'replace';
 export class VariableContext {
     constructor() {
         this.variables = {};
@@ -129,7 +129,7 @@ export default function getCommandRunnerContext() {
         const commandRunnerContext = new CommandRunnerContext();
         if (preDefinedFunctions) {
             for (const fn of preDefinedFunctions) {
-                commandRunnerContext.setFunction(Fn.fromFunction(fn));
+                commandRunnerContext.setFunction(fn);
             }
         }
         return commandRunnerContext;
