@@ -8,6 +8,7 @@ import getSelectedText from './vscode-functions/get-selected-text';
 import getBaseFolder from './vscode-functions/get-base-folder';
 import getFileNameAndExtension from './core/utils/path';
 import { systemVariableNames } from './core/pre-defined-variables';
+import log from './log';
 
 export let commandRunnerContext: CommandRunnerContext;
 
@@ -15,15 +16,20 @@ export function activate(context: vscode.ExtensionContext) {
 	commandRunnerContext = getCommandRunnerContext();
 
 	if (vscode.window.registerWebviewPanelSerializer) {
-		vscode.window.registerWebviewPanelSerializer(GenericWebViewPanel.viewType, {
-			async deserializeWebviewPanel(webviewPanel: vscode.WebviewPanel, state: any) {/*TODO! ??*/ }
-		});
+		try {
+			vscode.window.registerWebviewPanelSerializer(GenericWebViewPanel.viewType, {
+				async deserializeWebviewPanel(webviewPanel: vscode.WebviewPanel, state: any) {/*TODO! ??*/ }
+			});
+		} catch (error) {
+			//TODO: control register error
+			log.error(error);
+		}
 	}
 
 	const config = initConfiguration();
 	//TODO: make baseFolder lazy
 	commandRunnerContext.setSystemVariable(new Variable(systemVariableNames.baseFolder, getBaseFolder()));
-	
+
 	setOpenAIApiKey(config.get('openAIToken'));
 	importSnippets(config.get('snippetFiles'));
 	initVsCodeCommands(context);
@@ -71,7 +77,7 @@ function initVsCodeCommands(context: vscode.ExtensionContext) {
 }
 export let extensionConfig: { [key: string]: string | undefined; } = {};
 function initConfiguration() {
-	
+
 	vscode.workspace.onDidChangeConfiguration((event: vscode.ConfigurationChangeEvent) => {
 		if (event.affectsConfiguration('"openaipoweredsnippet.openAIToken')) {
 			const config = vscode.workspace.getConfiguration('openaipoweredsnippet');

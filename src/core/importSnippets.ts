@@ -5,6 +5,7 @@ import Fn from './fn';
 import Variable from './variable';
 import { commandRunnerContext } from '../extension';
 import getBaseFolder from '../vscode-functions/get-base-folder';
+import log from '../log';
 
 export default async function importSnippets(snippetFiles) {
 	async function readFile(file: string) {
@@ -70,15 +71,19 @@ export default async function importSnippets(snippetFiles) {
 		return snippetFiles.split(";");
 	}
 	function searchForSnipFilesUnderVsCodeFolder(): Array<string> {
-		let validSnipFileName: Array<string> = ['openaisnip.js', 'openaisnip.json'];
+		let validSnipFileName: Array<string> = ['openaisnipets.js', 'openaisnipets.json'];
 		const baseFolderPath = getBaseFolder();
 		let snipFiles = validSnipFileName.map(sf => path.join(baseFolderPath, '.vscode', sf));
 		return snipFiles;
 	}
 
 	const allSnipFiles = searchForSnipFilesUnderVsCodeFolder().concat(getFilesFromConfig());
-	console.log(allSnipFiles);
+	log.info(allSnipFiles);
 	allSnipFiles.forEach(sf => {
-		importFile(sf);
+		try {
+			importFile(sf);
+		} catch (error) {
+			log.error(error);
+		}
 	});
 }

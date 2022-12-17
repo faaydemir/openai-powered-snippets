@@ -16,7 +16,7 @@ export default class GenericWebViewPanel {
      */
     public static currentPanel: GenericWebViewPanel | undefined;
 
-    public static readonly viewType = 'GenericWebView';
+    public static readonly viewType = 'GenericWebViewPanel';
 
     private readonly _panel: vscode.WebviewPanel;
     private readonly _extensionUri: vscode.Uri;

@@ -1,5 +1,5 @@
 {
-	"name": "openai-powered-snippet",
+	"name": "openaipoweredsnippet",
 	"displayName": "openai powered snippet",
 	"description": "openai-powered-snippet",
 	"version": "0.0.4",
@@ -20,12 +20,6 @@
 	"main": "./dist/extension.js",
 	"contributes": {
 		"menus": {
-			"editor/context": [
-				{
-					"command": "openaipoweredsnippet.run",
-					"group": "openaipoweredsnippet-menu-group@1"
-				}
-			],
 			"commandPalette": [
 				{
 					"command": "openaipoweredsnippet.run"
