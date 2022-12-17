@@ -4,10 +4,17 @@
 * add github action
 * investigate writeConsole multiple channel bug
 ------  
+* add license
 * make system variables lazy if possible
 * unit test
 * check if there is a vscode setting type for secrets or key
-
+* add checks > isKeySet, isFileSet etc
+* make improvements on error handling
+* add command decorator to
+  * handle errors
+  * check inputs
+  * ...
+ 
 ## TEST
 
 
