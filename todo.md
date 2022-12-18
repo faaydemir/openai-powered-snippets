@@ -1,16 +1,19 @@
 # TODO
 * modify readme
 * write and add sample snippets
-* implement json import
+* add pre-defined commands ??
 * add github action
 * investigate writeConsole multiple channel bug
 ------  
+* implement json import
 * add license
 * make system variables lazy if possible
 * unit test
 * check if there is a vscode setting type for secrets or key
 * add checks > isKeySet, isFileSet etc
 * make improvements on error handling
+* take user input. is there is {input.variableName} in template get value from user
+* add position param to append function
 * add command handler decorator to
   * handle errors
   * check inputs

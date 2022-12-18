@@ -58,12 +58,10 @@ module.exports = {
         },
     ],
     functions: [
-        {
-            // you could also write your own handler
-            myHandler({system,user}){
-                console.table({system});
-                console.table({user});
-            }
+        // you could also write your own handler
+        function myHandler({system,user}){
+            console.table({system});
+            console.table({user});
         }
     ],
     variables: [
