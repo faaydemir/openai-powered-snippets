@@ -3,7 +3,7 @@ import writeConsole from "../../vscode-functions/write-console";
 
 export default function append({
     textToAppend,
-    position = "start",
+    position = "end",
     system: { answer }
 }) {
     textToAppend = textToAppend ?? answer;

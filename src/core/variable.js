@@ -8,12 +8,12 @@ export default class Variable {
             this._value = value;
         }
     }
-    get(params) {
+    get(params, functions) {
         if (this._value) {
             return this._value;
         }
         if (this.getter) {
-            return this.getter(params);
+            return this.getter(params, functions);
         }
     }
 }

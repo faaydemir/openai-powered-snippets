@@ -9,6 +9,9 @@ import { systemVariableNames } from "./pre-defined-variables";
 const DEFAULT_COMMAND_HANDLER = 'replace';
 export class VariableContext {
     constructor() {
+        /**
+         * @type {Object.<String, Variable>}
+         */
         this.variables = {};
     }
 
@@ -19,15 +22,15 @@ export class VariableContext {
     set(variable) {
         this.variables[variable.name] = variable;
     }
-    
+
     /**
      * return variable values
      * @param  {} params=undefined
      */
-    get(params = undefined) {
+    getVariables(params = undefined, functions = undefined) {
         return Object.keys(this.variables).reduce(
             (agg, key) => {
-                agg[key] = this.variables[key].get(params);
+                agg[key] = this.variables[key].get(params, functions);
                 return agg;
             },
             {}
@@ -48,11 +51,24 @@ export class FunctionContext {
     }
 
     /**
-     * @param  {string} functionName
+     * @param  {String} functionName
      * @returns {Fn}
      */
     get(functionName) {
         return this.functions[functionName];
+    }
+    /**
+     * @param  {String} functionName
+     * @returns {Object.<String,Function>}
+     */
+    getFunctions() {
+        return Object.keys(this.functions).reduce(
+            (agg, key) => {
+                agg[key] = this.functions[key]._fn;
+                return agg;
+            },
+            {}
+        );
     }
 }
 
@@ -67,8 +83,9 @@ export class CommandRunnerContext {
     }
 
     runHandler(handler) {
-        const system = this.systemVariableContext.get();
-        const user = this.userVariableContext.get(system);
+        const system = this.systemVariableContext.getVariables();
+        const functions = this.functionContext.getFunctions();
+        const user = this.userVariableContext.getVariables(system, functions);
         const variables = { system, user };
 
         let functionName;
@@ -90,14 +107,14 @@ export class CommandRunnerContext {
             ...variables
         });
     }
-    
+
     /**
      * @param  {Variable} variable
      */
     setSystemVariable(variable) {
         this.systemVariableContext.set(variable);
     }
-    
+
     /**
      * @param  {Variable} variable
      */
@@ -129,9 +146,11 @@ export class CommandRunnerContext {
     /**
      * @param  {Command} command
      */
+    //TODO: code duplication refactor runHandler and runCommand
     async runCommand(command) { //TODO: rename executeCommand
-        const system = this.systemVariableContext.get();
-        const user = this.userVariableContext.get(system);
+        const system = this.systemVariableContext.getVariables();
+        const functions = this.functionContext.getFunctions();
+        const user = this.userVariableContext.getVariables(system, functions);
         const question = command.prepare(system, user);
         this.setSystemVariable(new Variable(systemVariableNames.question, question));
         const answer = await askToOpenAI(question);
