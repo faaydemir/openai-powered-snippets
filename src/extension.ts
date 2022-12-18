@@ -9,6 +9,7 @@ import getBaseFolder from './vscode-functions/get-base-folder';
 import getFileNameAndExtension from './core/utils/path';
 import { systemVariableNames } from './core/pre-defined-variables';
 import log from './log';
+import { getActiveDocument } from './vscode-functions/get-active-file-name';
 
 export let commandRunnerContext: CommandRunnerContext;
 
@@ -28,12 +29,25 @@ export function activate(context: vscode.ExtensionContext) {
 
 	const config = initConfiguration();
 	//TODO: make baseFolder lazy
-	commandRunnerContext.setSystemVariable(new Variable(systemVariableNames.baseFolder, getBaseFolder()));
-
+	initSnippetSystemVariables();
 	setOpenAIApiKey(config.get('openAIToken'));
 	importSnippets(config.get('snippetFiles'));
 	initVsCodeCommands(context);
 	initEvents();
+}
+
+//TODO: compare with initEvent and refactor
+function initSnippetSystemVariables() {
+	commandRunnerContext.setSystemVariable(new Variable(systemVariableNames.baseFolder, getBaseFolder()));
+	const document = getActiveDocument();
+	if (document) {
+		commandRunnerContext.setSystemVariable(new Variable(systemVariableNames.language, document.languageId));
+		commandRunnerContext.setSystemVariable(new Variable(systemVariableNames.filePath, document.fileName));
+		const { extension, fileName, fileFolder } = getFileNameAndExtension(document.fileName);
+		commandRunnerContext.setSystemVariable(new Variable(systemVariableNames.fileName, fileName));
+		commandRunnerContext.setSystemVariable(new Variable(systemVariableNames.fileExtension, extension));
+		commandRunnerContext.setSystemVariable(new Variable(systemVariableNames.fileFolder, fileFolder));
+	}
 }
 function initEvents() {
 	vscode.window.onDidChangeActiveTextEditor((e) => {
@@ -90,6 +104,5 @@ function initConfiguration() {
 	});
 	return vscode.workspace.getConfiguration('openaipoweredsnippet');
 }
-
 
 export function deactivate() { }
