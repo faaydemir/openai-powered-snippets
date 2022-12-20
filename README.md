@@ -112,10 +112,44 @@ handler: {
 }
 ```
 ## Creating Functions
-TODO
+TODO!!
+
 ## Creating Variables
-Any of `variables` item can be used in command template. User defined values must have `user` prefix. Etc: if `testFileName` defined in variables it's can be used as  `user.TestFileName` in template file or can pass to function.
-variable value can be static or dynamic. For dynamic values you should create a getter method. On calling variable getter, system variables, functions are passed as args first args is system variable second one is functions. 
+Any of the `variables` items can be used in a command template. User-defined values must have the "user" prefix. For example, if "testFileName" is defined in variables, it can be used as "user.TestFileName" in the template file or passed to a function.
+
+Variable values can be static or dynamic. For dynamic values, you should create a getter method. When calling the variable getter, system variables(see Predefined System Variables) and functions are passed as arguments, the first argument is a system variable and the second one is a function.
+```js
+module.exports = {
+variables: [
+    {
+        //static
+        name: "testingFramework",
+        value: "xUnit"
+    },
+    {
+        //dynamic
+        name: "typeNameInResponse",
+        value: ({ answer/*system variable*/ }, { extractTypeName/*user defined function*/ }) => extractTypeName({ code: answer })
+    },
+]
+functions: [function extractTypeName({ code, system }) {/**/}],
+commands: [
+    {
+        name: "Create DTO",
+        template: `Create unit test with {user.testingFramework} for following class. 
+        class:
+        {system.selection}`,
+        handler: {
+            func: 'writeFile',
+            args: {
+                filePath: 'user.typeNameInResponse'/*usage for function arg*/
+            }
+        }
+    }
+]
+}
+```
+
 ### Predefined System Variables
 
 | Variable Name        | Description                           |
