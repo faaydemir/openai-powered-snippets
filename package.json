@@ -2,7 +2,7 @@
 	"name": "openaipoweredsnippet",
 	"displayName": "openai powered snippet",
 	"description": "openai-powered-snippet",
-	"version": "0.0.8",
+	"version": "0.0.9",
 	"publisher":"faaydemir",
 	"repository": {
 		"type": "git",
