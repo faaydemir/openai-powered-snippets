@@ -25,6 +25,13 @@ module.exports = {
             }
         },
         {
+            name: "Cleanup",
+            template: `Cleanup and reformat following code. No explanation needed, just give me code. 
+            method:
+            {system.selection}`,
+            handler: 'replace'
+        },
+        {
             name: "Give advice for naming",
             template: `Give advice for naming this code snippet.
             code:
@@ -33,14 +40,14 @@ module.exports = {
         },
         {
             name: "Refactor for better performance",
-            template: `Refactor following {system.language} code to get better performance and memory usage. No explanation needed ,just give me code. 
+            template: `Refactor following {system.language} code to get better performance and minimal memory usage. No explanation needed ,just give me code. 
             code:
             {system.selection}`,
             handler: 'append'
         },
         {
             name: "Write doc",
-            template: `Write doc for following method.
+            template: `Create xml formated method documentation comments for following method.
             method:
             {system.selection}`,
             handler: {
@@ -85,7 +92,7 @@ module.exports = {
         },
         {
             name: "benchmarkFileName",
-            value: ({ baseFolder, fileName, fileExtension }) => `${baseFolder}\\Benchmark\\${fileName}${fileExtension}`
+            value: ({ baseFolder, fileName, fileExtension }) => `${baseFolder}\\Benchmark\\${fileName}.${fileExtension}`
         },
     ]
 };

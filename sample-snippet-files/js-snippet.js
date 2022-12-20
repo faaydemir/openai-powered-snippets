@@ -32,6 +32,13 @@ module.exports = {
             }
         },
         {
+            name: "Cleanup AirBnB",
+            template: `Cleanup and reformat, and fix lint errors on following code. Use Airbnb Style Guide. No explanation needed, just give me code. 
+            method:
+            {system.selection}`,
+            handler: 'replace'
+        },
+        {
             name: "Explain following code",
             template: `Explain following code. And show me what can be improvements.
             code:
