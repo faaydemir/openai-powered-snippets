@@ -14,7 +14,7 @@ VS Code provides an extension that allows developers to create code snippets usi
 * Left click in File and select OpenAI Snippet command.
 * Create snippet definition as js file like below and add it in settings
 
-Here is sample snippet file:
+Here is a sample snippet file:
 ```js
 module.exports = {
     commands: [
@@ -28,7 +28,7 @@ module.exports = {
 };
 ```
 
-Here is complex snippet file:
+Here is a more complex snippet file:
 ```js
 module.exports = {
     commands: [
@@ -111,7 +111,11 @@ handler: {
     }
 }
 ```
-
+## Creating Functions
+TODO
+## Creating Variables
+Any of `variables` item can be used in command template. User defined values must have `user` prefix. Etc: if `testFileName` defined in variables it's can be used as  `user.TestFileName` in template file or can pass to function.
+variable value can be static or dynamic. For dynamic values you should create a getter method. On calling variable getter, system variables, functions are passed as args first args is system variable second one is functions. 
 ### Predefined System Variables
 
 | Variable Name        | Description                           |
