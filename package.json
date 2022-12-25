@@ -2,8 +2,8 @@
 	"name": "openaipoweredsnippet",
 	"displayName": "openai powered snippet",
 	"description": "openai-powered-snippet",
-	"version": "0.0.9",
-	"publisher":"faaydemir",
+	"version": "0.0.10",
+	"publisher": "faaydemir",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/faaydemir/openai-powered-snippets.git"
@@ -12,7 +12,7 @@
 		"vscode": "^1.62.0"
 	},
 	"categories": [
-		"Other"
+		"Snippets"
 	],
 	"activationEvents": [
 		"onStartupFinished"
@@ -33,11 +33,11 @@
 			}
 		],
 		"keybindings": [
-            {
-                "command": "openaipoweredsnippet.run",
-                "key": "ctrl+o ctrl+a"
-            }
-        ],
+			{
+				"command": "openaipoweredsnippet.run",
+				"key": "ctrl+o ctrl+a"
+			}
+		],
 		"configuration": {
 			"title": "OpenAI Powered Snippets",
 			"type": "object",
@@ -85,6 +85,7 @@
 		"webpack-cli": "^4.8.0"
 	},
 	"dependencies": {
+		"axios": "^1.2.1",
 		"openai": "^3.1.0"
 	}
 }

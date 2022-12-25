@@ -4,6 +4,7 @@
 * add pre-defined commands ??
 * add github action
 * investigate writeConsole multiple channel bug
+* watch snippet files for changes
 ------  
 * implement json import
 * add license
@@ -20,6 +21,7 @@
   * ...
  
 ## TEST
+* enable remote snippet file usage
 
 
 ## DONE

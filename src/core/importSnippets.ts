@@ -6,17 +6,30 @@ import Variable from './variable';
 import { commandRunnerContext } from '../extension';
 import getBaseFolder from '../vscode-functions/get-base-folder';
 import log from '../log';
+import { isHttpAddress } from './utils/url';
+import axios from 'axios';
 
 export default async function importSnippets(snippetFiles) {
 
+	async function read(fileOrUrl: string) {
+		if (isHttpAddress(fileOrUrl)) {
+			return await readFromUrl(fileOrUrl);
+		}
+		else {
+			return await readFile(fileOrUrl);
+		}
+	}
+	async function readFromUrl(url: string) {
+		const response = await axios.get(url);
+		return response.data;
+	}
 	async function readFile(file: string) {
 		const document = await vscode.workspace.openTextDocument(file);
 		let fileContent = document.getText();
 		return fileContent;
 	}
-
 	async function importJsSnipFile(snipFile: string) {
-		let js = await readFile(snipFile);
+		let js = await read(snipFile);
 		let userDefinitions = eval(js);
 		//TODO: check userDefinitions
 		if (userDefinitions.commands) {
@@ -44,7 +57,7 @@ export default async function importSnippets(snippetFiles) {
 		//TODO: !!not complete implemented!!
 		const document = await vscode.workspace.openTextDocument(snipFile);
 		let userDefinitions = JSON.parse(document.getText());
-		
+
 		if (userDefinitions.commands) {
 			userDefinitions.commands.forEach((command: { name: any; template: any; handler: any; }) => {
 				commandRunnerContext.addCommand(new Command(
