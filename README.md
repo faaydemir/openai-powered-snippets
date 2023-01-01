@@ -1,6 +1,6 @@
 # OpenAI Powered Snippets Beta
 
-VS Code provides an extension that allows developers to create code snippets using the power of OpenAI
+A Visual Studio Code extension that allows developers to create code snippets using the power of OpenAI
 
 ![usage](/media/usage.gif)
 
