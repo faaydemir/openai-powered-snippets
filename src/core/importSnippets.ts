@@ -12,7 +12,10 @@ import * as YAML from 'yaml';
 
 export default async function importSnippets(snippetFiles) {
 
-	const allSnipFiles = searchForSnipFilesUnderVsCodeFolder().concat(getFilesFromConfig(snippetFiles));
+	const allSnipFiles = [
+		...searchForSnipFilesUnderVsCodeFolder(),
+		...getFilesFromConfig(snippetFiles)
+	];
 	for (let i = 0; i < allSnipFiles.length; i++) {
 		try {
 			await importFile(allSnipFiles[i]);
@@ -78,6 +81,7 @@ async function importJsSnipFile(jsSnippetDefinition: string) {
 	}
 }
 async function read(fileOrUrl: string) {
+
 	if (isHttpAddress(fileOrUrl)) {
 		return await readFromUrl(fileOrUrl);
 	}
@@ -92,15 +96,11 @@ async function readFromUrl(url: string) {
 }
 
 async function readFile(file: string) {
-	try {
-		const document = await vscode.workspace.openTextDocument(file);
-		let fileContent = document.getText();
-		return fileContent;
-	} catch {
-		return undefined;
-	}
-
+	const document = await vscode.workspace.openTextDocument(file);
+	let fileContent = document.getText();
+	return fileContent;
 }
+
 async function importJsonSnipFile(jsonDefinition: string) {
 	let userDefinitions = JSON.parse(jsonDefinition);
 	importSnippetObject(userDefinitions);
@@ -110,6 +110,11 @@ async function importYamlSnipFile(yamlDefinition: string) {
 	let userDefinitions = YAML.parse(yamlDefinition);
 	importSnippetObject(userDefinitions);
 }
+type SnippetDefinition = {
+	commands: any;
+	variables: any;
+};
+
 export function importSnippetObject(userSnippets: SnippetDefinition) {
 
 	if (userSnippets.commands) {
@@ -122,7 +127,7 @@ export function importSnippetObject(userSnippets: SnippetDefinition) {
 			));
 		}
 	}
-	
+
 	if (userSnippets.variables) {
 		for (const variableKey in userSnippets.variables) {
 			const variable = userSnippets.variables[variableKey];
@@ -133,10 +138,6 @@ export function importSnippetObject(userSnippets: SnippetDefinition) {
 		}
 	}
 }
-type SnippetDefinition = {
-	commands: any;
-	variables: any;
-};
 
 function getFileType(snipFile: string): string | undefined {
 	if (snipFile) {
