@@ -77,6 +77,62 @@ module.exports = {
 };
 ```
 
+You can also define snippet as json or yaml
+```json
+{
+  "commands": {
+    "refactor": {
+      "name": "refactor",
+      "prompt": "Refactor given {system.language} code. code: {system.selection}\n",
+      "handler": "replace"
+    },
+    "createUnitTest": {
+      "name": "Create unit test.",
+      "prompt": "Create unit test in {user.unitTestFramework} framework for following function.  code: {system.selection}`\n",
+      "handler": {
+        "func": "writeFile",
+        "args": {
+          "filePath": "user.testFileName"
+        }
+      }
+    }
+  },
+  "variables": {
+    "testFileName": {
+      "js": "({ baseFolder,fileName,fileExtension }) => `${baseFolder}\\\\tests\\\\${fileName}.test.${fileExtension}`"
+    },
+    "unitTestFramework": "jest"
+  }
+}
+```
+
+```yaml
+commands:
+  refactor:
+    name: refactor
+    prompt: >
+      Refactor given {system.language} code.
+      code:
+      {system.selection}
+    handler: replace
+
+  createUnitTest:
+    name: Create unit test.
+    prompt: >
+      Create unit test in {user.unitTestFramework} framework for following function. 
+      code:
+      {system.selection}`
+    handler: 
+        func: 'writeFile'
+        args: 
+            filePath: 'user.testFileName'
+
+variables:
+  testFileName: 
+    js: ({ baseFolder,fileName,fileExtension }) => `${baseFolder}\\tests\\${fileName}.test.${fileExtension}`
+  unitTestFramework: jest
+```
+
 Samples:
 
 https://github.com/faaydemir/openai-powered-snippets/tree/main/sample-snippet-files

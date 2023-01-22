@@ -8,12 +8,12 @@ import getSelectedText from './vscode-functions/get-selected-text';
 import getBaseFolder from './vscode-functions/get-base-folder';
 import getFileNameAndExtension from './core/utils/path';
 import { systemVariableNames } from './core/pre-defined-variables';
-import log from './log';
+import log from './logger';
 import { getActiveDocument } from './vscode-functions/get-active-file-name';
 
 export let commandRunnerContext: CommandRunnerContext;
 
-export function activate(context: vscode.ExtensionContext) {
+export async function activate(context: vscode.ExtensionContext) {
 	commandRunnerContext = getCommandRunnerContext();
 
 	if (vscode.window.registerWebviewPanelSerializer) {
@@ -31,7 +31,7 @@ export function activate(context: vscode.ExtensionContext) {
 	//TODO: make baseFolder lazy
 	initSnippetSystemVariables();
 	setOpenAIApiKey(config.get('openAIToken'));
-	importSnippets(config.get('snippetFiles'));
+	await importSnippets(config.get('snippetFiles'));
 	initVsCodeCommands(context);
 	initEvents();
 }
