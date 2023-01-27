@@ -10,6 +10,7 @@ import getFileNameAndExtension from './core/utils/path';
 import { systemVariableNames } from './core/pre-defined-variables';
 import log from './logger';
 import { getActiveDocument } from './vscode-functions/get-active-file-name';
+import Command from './core/command';
 
 let commandRunnerContext;
 export async function activate(context: vscode.ExtensionContext) {
@@ -76,7 +77,7 @@ function initVsCodeCommands(context: vscode.ExtensionContext) {
 
 		commandRunnerContext.setSystemVariable(new Variable(systemVariableNames.extensionUri, context.extensionUri));
 
-		let selectedCommand = await vscode.window.showQuickPick(commandRunnerContext.getCommands().map(c => ({
+		let selectedCommand = await vscode.window.showQuickPick<{ label: string, description: string, command: Command }>(commandRunnerContext.getCommands().map(c => ({
 			label: c.name,
 			description: c.description,
 			command: c
