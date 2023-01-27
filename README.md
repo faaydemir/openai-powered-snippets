@@ -121,11 +121,11 @@ commands:
     prompt: >
       Create unit test in {user.unitTestFramework} framework for following function. 
       code:
-      {system.selection}`
+      {system.selection}
     handler: 
-        func: 'writeFile'
+        func: writeFile
         args: 
-            filePath: 'user.testFileName'
+            filePath: user.testFileName
 
 variables:
   testFileName: 
