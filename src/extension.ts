@@ -11,8 +11,7 @@ import { systemVariableNames } from './core/pre-defined-variables';
 import log from './logger';
 import { getActiveDocument } from './vscode-functions/get-active-file-name';
 
-export let commandRunnerContext: CommandRunnerContext;
-
+let commandRunnerContext;
 export async function activate(context: vscode.ExtensionContext) {
 	commandRunnerContext = getCommandRunnerContext();
 
@@ -89,7 +88,7 @@ function initVsCodeCommands(context: vscode.ExtensionContext) {
 	context.subscriptions.push(commandExplain);
 
 }
-export let extensionConfig: { [key: string]: string | undefined; } = {};
+let extensionConfig: { [key: string]: string | undefined; } = {};
 function initConfiguration() {
 
 	vscode.workspace.onDidChangeConfiguration((event: vscode.ConfigurationChangeEvent) => {

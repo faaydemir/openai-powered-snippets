@@ -1,4 +1,4 @@
-const { default: GenericWebViewPanel } = require("./webview-panel");
+import GenericWebViewPanel from "./webview-panel";
 
 export default function showWebView(htmlBuilder, extensionUri) {
     htmlBuilder = htmlBuilder ?? defaultHtmlBuilder;

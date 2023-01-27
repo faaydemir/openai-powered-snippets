@@ -3,12 +3,12 @@ import * as vscode from 'vscode';
 import Command from './command';
 import Fn from './fn';
 import Variable from './variable';
-import { commandRunnerContext } from '../extension';
 import getBaseFolder from '../vscode-functions/get-base-folder';
 import log from '../logger';
 import { isHttpAddress } from './utils/url';
 import axios from 'axios';
 import * as YAML from 'yaml';
+import getCommandRunnerContext from './command-runner-context';
 
 export default async function importSnippets(snippetFiles) {
 
@@ -57,7 +57,7 @@ async function importFile(filePath: string) {
 }
 
 async function importJsSnipFile(jsSnippetDefinition: string) {
-
+	let commandRunnerContext = getCommandRunnerContext();
 	let userDefinitions = eval(jsSnippetDefinition);
 	if (userDefinitions.commands) {
 		userDefinitions.commands.forEach((command: { name: any; template: any; prompt: any; handler: any; }) => {
@@ -117,6 +117,7 @@ type SnippetDefinition = {
 
 export function importSnippetObject(userSnippets: SnippetDefinition) {
 
+	let commandRunnerContext = getCommandRunnerContext();
 	if (userSnippets.commands) {
 		for (const commandKey in userSnippets.commands) {
 			const command = userSnippets.commands[commandKey];

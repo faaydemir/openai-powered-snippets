@@ -5,8 +5,8 @@
 * add github action
 * investigate writeConsole multiple channel bug
 * watch snippet files for changes
-* add yaml support
 ------  
+* add yaml support
 * implement json import
 * add license
 * make system variables lazy if possible
