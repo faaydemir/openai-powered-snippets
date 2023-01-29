@@ -3,6 +3,7 @@
 	"displayName": "openai(chatgpt) powered snippet",
 	"description": "A Visual Studio Code extension that allows developers to create code snippets using the power of OpenAI",
 	"version": "0.0.16",
+	"icon": "media/icon.png",
 	"keywords": [
 		"chatgpt",
 		"openai",
