@@ -1,10 +1,15 @@
 # TODO
 * modify readme
+* add editor
+* show process
 * write and add sample snippets
-* add pre-defined commands ??
 * add github action
 * investigate writeConsole multiple channel bug
+* add pre-defined commands ??
+* make system variables lazy
 * watch snippet files for changes
+* create another repo for snippets
+
 ------  
 * add yaml support
 * implement json import
