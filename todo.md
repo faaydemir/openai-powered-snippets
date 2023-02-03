@@ -6,7 +6,7 @@
    - link add token 
    - new gif for yaml 
    -
-* read snippets from folder (read all or add a file contains all snippets)
+* read snippets from folder (read all or add a file contains all snippets snippet/* etc)
 * write and add sample snippets
 * add github action
 * fix writeConsole multiple channel bug
@@ -26,7 +26,8 @@
   * handle errors
   * check inputs
   * ...
- 
+* check package.json https://code.visualstudio.com/api/references/extension-manifest
+* make code review
 ## TEST
 * enable remote snippet file usage
 
