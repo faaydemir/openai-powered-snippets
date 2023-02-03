@@ -28,6 +28,7 @@
   * ...
 * check package.json https://code.visualstudio.com/api/references/extension-manifest
 * make code review
+* snippet filter base on language. if snippet language is js dont't show in py file 
 ## TEST
 * enable remote snippet file usage
 
