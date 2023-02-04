@@ -1,6 +1,9 @@
 # TODO
 * add editor
-* show process
+   - add editor with better ui
+* show process 
+    - for loading https://code.visualstudio.com/api/ux-guidelines/status-bar
+    - for error https://code.visualstudio.com/api/ux-guidelines/notifications#progress-notification
 * modify readme
    - link to create user in open ai
    - link add token 
