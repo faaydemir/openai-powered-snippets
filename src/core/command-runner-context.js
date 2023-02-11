@@ -164,6 +164,9 @@ export class CommandRunnerContext {
 }
 
 let commandRunnerContext;
+/**
+ * @returns {CommandRunnerContext}
+ */
 export default function getCommandRunnerContext() {
 
     if (!commandRunnerContext) {
