@@ -35,7 +35,7 @@
 		"commands": [
 			{
 				"command": "openaipoweredsnippet.run",
-				"title": "OpenAI Snippet"
+				"title": "Run OpenAI Snippet"
 			}
 		],
 		"keybindings": [
@@ -57,7 +57,7 @@
 				"openaipoweredsnippet.snippetFiles": {
 					"type": "string",
 					"default": "",
-					"description": "Path for user defined snippet files. For multiple path seperate with ';'  C:\\MySnipFolder1\\snip.js;C:\\MySnipFolder2\\snip.js",
+					"description": "Path for user defined snippet files. For multiple path seperate with ';'  C:\\MySnipFolder1;C:\\MySnipFolder2\\snip.js",
 					"order": 2
 				}
 			}
