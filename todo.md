@@ -1,15 +1,11 @@
 # TODO
 * add editor
    - add editor with better ui
-* show process 
-    - for loading https://code.visualstudio.com/api/ux-guidelines/status-bar
-    - for error https://code.visualstudio.com/api/ux-guidelines/notifications#progress-notification
 * modify readme
    - link to create user in open ai
    - link add token 
    - new gif for yaml 
    -
-* read snippets from folder (read all or add a file contains all snippets snippet/* etc)
 * write and add sample snippets
 * add github action
 * fix writeConsole multiple channel bug
@@ -31,11 +27,13 @@
   * ...
 * check package.json https://code.visualstudio.com/api/references/extension-manifest
 * make code review
-* snippet filter base on language. if snippet language is js dont't show in py file 
+* snippet filter base on language. if snippet language is js dont't show for py file 
 ## TEST
 * enable remote snippet file usage
-
-
+* read snippets from folder (read all or add a file contains all snippets snippet/* etc)
+* show process 
+    - for loading https://code.visualstudio.com/api/ux-guidelines/status-bar
+    - for error https://code.visualstudio.com/api/ux-guidelines/notifications#progress-notification
 ## DONE
 * add yaml support
 * implement json import

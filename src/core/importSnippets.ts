@@ -136,6 +136,7 @@ async function importYamlSnipFile(yamlDefinition: string) {
 type SnippetDefinition = {
 	commands: any;
 	variables: any;
+	functions: any;
 };
 
 export function importSnippetObject(userSnippets: SnippetDefinition) {
@@ -182,8 +183,24 @@ export function importSnippetObject(userSnippets: SnippetDefinition) {
 			}
 		}
 	}
+	if (userSnippets.functions) {
+		if (Array.isArray(userSnippets.functions)) {
+			for (const functionText of userSnippets.functions) {
+				commandRunnerContext.setFunction(Fn.fromString(functionText));
+			}
+		}
+		else {
+			for (const variableKey in userSnippets.variables) {
+				const variable = userSnippets.variables[variableKey];
+				const value = variable.js
+					? eval(variable.js)
+					: variable;
+				commandRunnerContext.setUserVariable(new Variable(variableKey, value));
+			}
+		}
+	}
 }
-}
+
 
 function getFileType(snipFile: string): string | undefined {
 	if (snipFile) {

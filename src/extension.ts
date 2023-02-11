@@ -83,7 +83,24 @@ function initVsCodeCommands(context: vscode.ExtensionContext) {
 			command: c
 		})));
 		if (selectedCommand) {
-			await commandRunnerContext.runCommand(selectedCommand?.command);
+
+			vscode.window.withProgress({
+				location: vscode.ProgressLocation.Window,
+				cancellable: false,
+				title: `Executing. ${selectedCommand.label}`
+			}, async (progress) => {
+
+				try {
+					progress.report({ increment: 0 });
+					await commandRunnerContext.runCommand(selectedCommand?.command);
+				} catch (err) {
+					vscode.window.showErrorMessage(`Error. ${err?.message}`);
+					throw err;
+				}
+				finally {
+					progress.report({ increment: 100 });
+				}
+			});
 		}
 	});
 	context.subscriptions.push(commandExplain);
@@ -96,10 +113,15 @@ function initConfiguration() {
 		if (event.affectsConfiguration('"openaipoweredsnippet.openAIToken')) {
 			const config = vscode.workspace.getConfiguration('openaipoweredsnippet');
 			setOpenAIApiKey(config.get('openAIToken') as string | undefined);
-
+			if (!config.get('openAIToken')) {
+				log.error("Open AI api key required");
+			}
 		} else if (event.affectsConfiguration('openaipoweredsnippet.snippetFiles')) {
 			const config = vscode.workspace.getConfiguration('openaipoweredsnippet');
 			importSnippets(config.get('snippetFiles'));
+			if (!config.get('snippetFiles')) {
+				log.error("SnippetFile key required");
+			}
 		}
 	});
 	return vscode.workspace.getConfiguration('openaipoweredsnippet');
