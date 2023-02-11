@@ -9,7 +9,7 @@ import { isHttpAddress } from './utils/url';
 import axios from 'axios';
 import * as YAML from 'yaml';
 import getCommandRunnerContext from './command-runner-context';
-
+import * as fs from 'fs';
 export default async function importSnippets(snippetFiles) {
 
 	const allSnipFiles = [
@@ -18,7 +18,13 @@ export default async function importSnippets(snippetFiles) {
 	];
 	for (let i = 0; i < allSnipFiles.length; i++) {
 		try {
-			await importFile(allSnipFiles[i]);
+			const isDir = fs.lstatSync(allSnipFiles[i]).isDirectory();
+			if (isDir) {
+				await importFolder(allSnipFiles[i]);
+			}
+			else {
+				await importFile(allSnipFiles[i]);
+			}
 		} catch (error) {
 			log.error(error);
 		}
@@ -41,6 +47,7 @@ function getFilesFromConfig(snippetFiles: string): Array<string> {
 
 async function importFile(filePath: string) {
 
+
 	const fileType = getFileType(filePath);
 	if (!['js', 'json', 'yaml'].includes(fileType)) {
 		return;
@@ -54,6 +61,22 @@ async function importFile(filePath: string) {
 	} else if (fileType === 'yaml') {
 		await importYamlSnipFile(fileContent);
 	}
+}
+async function importFolder(folderPath: string) {
+	if (!fs.lstatSync(folderPath).isDirectory()) {
+		return;
+	}
+	const allSnipFiles = fs.readdirSync(folderPath, { withFileTypes: true })
+		.filter(item => !item.isDirectory())
+		.map(item => path.join(folderPath, item.name));
+
+	for (let i = 0; i < allSnipFiles.length; i++) {
+		try {
+			await importFile(allSnipFiles[i]);
+		} catch (error) {
+			log.error(error);
+		}
+	};
 }
 
 async function importJsSnipFile(jsSnippetDefinition: string) {
@@ -119,25 +142,47 @@ export function importSnippetObject(userSnippets: SnippetDefinition) {
 
 	let commandRunnerContext = getCommandRunnerContext();
 	if (userSnippets.commands) {
-		for (const commandKey in userSnippets.commands) {
-			const command = userSnippets.commands[commandKey];
-			commandRunnerContext.addCommand(new Command(
-				command.name ?? commandKey,
-				command.template ?? command.prompt,
-				command.handler
-			));
+		if (Array.isArray(userSnippets.commands)) {
+			for (const command of userSnippets.commands) {
+				commandRunnerContext.addCommand(new Command(
+					command.name,
+					command.template ?? command.prompt,
+					command.handler
+				));
+			}
+		}
+		else {
+			for (const commandKey in userSnippets.commands) {
+				const command = userSnippets.commands[commandKey];
+				commandRunnerContext.addCommand(new Command(
+					command.name ?? commandKey,
+					command.template ?? command.prompt,
+					command.handler
+				));
+			}
 		}
 	}
 
 	if (userSnippets.variables) {
-		for (const variableKey in userSnippets.variables) {
-			const variable = userSnippets.variables[variableKey];
-			const value = variable.js
-				? eval(variable.js)
-				: variable;
-			commandRunnerContext.setUserVariable(new Variable(variableKey, value));
+		if (Array.isArray(userSnippets.variables)) {
+			for (const variable of userSnippets.variables) {
+				const value = variable?.value?.js
+					? eval(variable.value.js)
+					: variable.value;
+				commandRunnerContext.setUserVariable(new Variable(variable.name, value));
+			}
+		}
+		else {
+			for (const variableKey in userSnippets.variables) {
+				const variable = userSnippets.variables[variableKey];
+				const value = variable.js
+					? eval(variable.js)
+					: variable;
+				commandRunnerContext.setUserVariable(new Variable(variableKey, value));
+			}
 		}
 	}
+}
 }
 
 function getFileType(snipFile: string): string | undefined {
