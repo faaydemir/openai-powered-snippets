@@ -1,4 +1,5 @@
 .vscode/**
+.github/**
 .vscode-test/**
 out/**
 node_modules/**
@@ -11,3 +12,5 @@ vsc-extension-quickstart.md
 **/.eslintrc.json
 **/*.map
 **/*.ts
+snippet-editor/**
+sample-snippet-files/**
