@@ -9,12 +9,22 @@ A Visual Studio Code extension that allows developers to create code snippets us
 
 * Get a OpenAI API key from https://platform.openai.com/account/api-keys
 * Create snippet file contains prompts, variable and functions.
-* Set your API key and snippet files in the extension VSCode settings `File>Preferences>Settings>Extensions>OpenAI Powered Snippets`
+* Set your API key and snippet files path in the extension VSCode settings `File>Preferences>Settings>Extensions>OpenAI Powered Snippets`
 ![settings](/media/settings.png)
 * In the editor, left-click and select "Run OpenAI Snippet" or use the keyboard shortcut Ctrl+O+A.
 
 # Snippet Files
+To use prompts you need create snippet and set path in vscode settings.
+
 You can create snippet files using either YAML, JSON, or JavaScript. 
+
+To use created snippet files you need to set full path, or containg folder in vscode settings
+
+these all valid for path settings:
+ * C:\snippet_file_folder
+ * C:\snippet_file_folder\name_of_snippet.yaml
+ * https://remote_address/name_of_snippet.yaml
+ 
 
 See sample files : https://github.com/faaydemir/openai-powered-snippets/tree/main/sample-snippet-files
 
@@ -112,7 +122,7 @@ Snippet files contain the following properties : Commands, Functions, and Variab
 Each command in a snippet file has the following properties
 ### name 
 The name of the command. Required
-### prompt|template
+### prompt or template
 prompt template to use for creating an OpenAI request.
 Use can use system or user defined variable in template. variables will replaced with proper value while preparing request
 
