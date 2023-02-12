@@ -18,6 +18,9 @@ You can create snippet files using either YAML, JSON, or JavaScript.
 
 Sample files are available for reference at the following GitHub repository: https://github.com/faaydemir/openai-powered-snippets/tree/main/sample-snippet-files.
 
+Check snippet editor for try:
+https://faaydemir.github.io/openai-powered-snippets/
+
 Here is a YAML sample file:
 ```yaml
 commands:
