@@ -190,12 +190,9 @@ export function importSnippetObject(userSnippets: SnippetDefinition) {
 			}
 		}
 		else {
-			for (const variableKey in userSnippets.variables) {
-				const variable = userSnippets.variables[variableKey];
-				const value = variable.js
-					? eval(variable.js)
-					: variable;
-				commandRunnerContext.setUserVariable(new Variable(variableKey, value));
+			for (const functionKey in userSnippets.functions) {
+				const f = userSnippets.functions[functionKey];
+				commandRunnerContext.setFunction(Fn.fromString(f));
 			}
 		}
 	}
