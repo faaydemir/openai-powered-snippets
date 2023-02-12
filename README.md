@@ -7,19 +7,18 @@ A Visual Studio Code extension that allows developers to create code snippets us
 
 ## Usage
 
-* Get a OpenAI api key you can get it from https://beta.openai.com/
-* Create Snippet File.
-* Set your api key and snippet file in extension settings `File>Preferences>Settings>Extensions>OpenAI Powered Snippets`
+* Get a OpenAI API key from https://platform.openai.com/account/api-keys
+* Create snippet file contains prompts, variable and functions.
+* Set your API key and snippet files in the extension VSCode settings `File>Preferences>Settings>Extensions>OpenAI Powered Snippets`
 ![settings](/media/settings.png)
-* Left click in File and select OpenAI Snippet command. Or hit Ctrl+o+a
+* In the editor, left-click and select "Run OpenAI Snippet" or use the keyboard shortcut Ctrl+O+A.
 
-Here is a sample snippet file:
-# Creating snippet file
-You can create snippet file in yaml,json or js.
+# Snippet Files
+You can create snippet files using either YAML, JSON, or JavaScript. 
 
-Sample snippets files;
+Sample files are available for reference at the following GitHub repository: https://github.com/faaydemir/openai-powered-snippets/tree/main/sample-snippet-files.
 
-yaml
+Here is a YAML sample file:
 ```yaml
 commands:
   refactor:
@@ -47,7 +46,7 @@ variables:
   unitTestFramework: jest
 ```
 
-json
+JSON
 ```json
 {
   "commands": {
@@ -75,7 +74,7 @@ json
   }
 }
 ```
-js
+Javascript
 ```js
 module.exports = {
     commands: [
@@ -105,33 +104,32 @@ module.exports = {
     functions: [function extractTypeName({ code, system }) {/**/}],
 };
 ```
-
-Samples:
-
-https://github.com/faaydemir/openai-powered-snippets/tree/main/sample-snippet-files
-
-## Commands
+# Snippet Files in detail
+Snippet files contain the following properties : Commands, Functions, and Variables.
+## commands
+Each command in a snippet file has the following properties
 ### name 
-Requiered. Name of command.
+The name of the command. Required
 ### prompt|template
-Requiered. prompt template to use for create OpenAI request.
+prompt template to use for creating an OpenAI request.
 Use can use system or user defined variable in template. variables will replaced with proper value while preparing request
 
-To use system variable add `{system.*variableName*}` variableName can be one of Predefined System Variables
+To use system variable add `{system.*variableName*}` variableName can be one of Predefined System Variables. See below 
 
 To use user variable add `{user.*variableName*}`. variableName must be in variables field in snippet file.
 
 ### handler
-handler is use to handle openAI response. by default replace function is used. handle function can be one of Predefined System Function or an a User defined function (user defined function can be buggy).
+The handler is used to handle the OpenAI response. The default function used is replace. The handler function can be one of the predefined system functions or a user-defined function (although user-defined functions may be buggy).
 
-You can set handler in following ways
+You can set the handler in the following ways:
 
-Just function name. function run with default values
+Just the function name: the function will run with default values:
 ```js
 handler:'replace'
 ```
 
-With args function name to set function args
+With arguments, to set the function arguments:
+
 ```js
 handler: {
     func: 'replace',
@@ -141,12 +139,13 @@ handler: {
 }
 ```
 ## Functions
-function only works in js snippet file. !!TODO
+TODO
 
 ## Variables
-Any of the `variables` items can be used in a command template. User-defined values must have the "user" prefix. For example, if "testFileName" is defined in variables, it can be used as "user.TestFileName" in the template file or passed to a function.
+Any of the items in variables can be used in a command template. User-defined values must have the "user" prefix. For example, if testFileName is defined in variables, it can be used as user.TestFileName in the template file or passed to a function.
 
-Variable values can be static or dynamic. For dynamic values, you should create a getter method. When calling the variable getter, system variables(see Predefined System Variables) and functions are passed as arguments, the first argument is a system variable and the second one is a function.
+Variable values can be static or dynamic. For dynamic values, you should create a getter method. When calling the variable getter, system variables (see the predefined system variables) and functions are passed as arguments. The first argument is a system variable, and the second one is a function.
+
 ```js
 module.exports = {
 variables: [
@@ -179,12 +178,23 @@ commands: [
 }
 ```
 
+
+In YAML or JSON snippet files, the value can also be a dynamic JavaScript method. To use a JavaScript method for a value, set it as string as follows:
+```yaml
+variables:
+  testFileName: 
+    js: ({ baseFolder,fileName,fileExtension }) => `${baseFolder}\\tests\\${fileName}.test.${fileExtension}`
+```
+
+
+# System variables and functions
 ### Predefined System Variables
+
 
 | Variable Name        | Description                           |
 | -------------------- | ------------------------------------- |
 | system.selection     | Selected text in editor               |
-| system.question      | OpenAI question                       |
+| system.prompt        | Prepared OpenAI prompt                |
 | system.answer        | OpenAI answer                         |
 | system.language      | Programming language   of active file |
 | system.baseFolder    | Project base path                     |
@@ -195,13 +205,13 @@ commands: [
 
 
 ## Predefined System Function
-| Function Name | Description           | params(default)                                   |
+| Function Name | Description           | params and default values                         |
 | ------------- | --------------------- | ------------------------------------------------- |
-| append        | Append Text           | textToAppend(system.answer),postion('end')        |
-| replace       | Replace selected text | textToReplace(system.answer)                      |
-| showWebView   | Show Webview         | question(system.question),question(system.answer) |
-| writeConsole  | Write text to console | content(system.answer)                            |
-| writeFile     | Write text to file    | filePath(),content(system.answer)                 |
+| append        | Append Text           | textToAppend : system.answer<br> postion :'end'   |
+| replace       | Replace selected text | textToReplace : system.answer                     |
+| showWebView   | Show Webview          | prompt: system.prompt<br>answer: system.answer    |
+| writeConsole  | Write text to console | content: system.answer                            |
+| writeFile     | Write text to file    | filePath:<br>content: system.answer               |
 
 #### Replace
 Replace text with selection. Take optional parameter `textToReplace` In default value equals to OpenAI answer
