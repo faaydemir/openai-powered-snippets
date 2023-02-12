@@ -18,12 +18,13 @@ export default async function importSnippets(snippetFiles) {
 	];
 	for (let i = 0; i < allSnipFiles.length; i++) {
 		try {
-			const isDir = fs.lstatSync(allSnipFiles[i]).isDirectory();
+			const filePath = allSnipFiles[i].trim();
+			const isDir = fs.lstatSync(filePath).isDirectory();
 			if (isDir) {
-				await importFolder(allSnipFiles[i]);
+				await importFolder(filePath);
 			}
 			else {
-				await importFile(allSnipFiles[i]);
+				await importFile(filePath);
 			}
 		} catch (error) {
 			log.error(error);
