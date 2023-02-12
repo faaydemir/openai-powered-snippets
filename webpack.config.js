@@ -33,6 +33,7 @@ const extensionConfig = {
         test: /\.ts$/,
         exclude: [
           /node_modules/,
+          /snippet-editor/,
           /sample-snippet-files/
         ],
         use: [
