@@ -16,10 +16,9 @@ A Visual Studio Code extension that allows developers to create code snippets us
 # Snippet Files
 You can create snippet files using either YAML, JSON, or JavaScript. 
 
-Sample files are available for reference at the following GitHub repository: https://github.com/faaydemir/openai-powered-snippets/tree/main/sample-snippet-files.
+See sample files : https://github.com/faaydemir/openai-powered-snippets/tree/main/sample-snippet-files
 
-Check snippet editor for try:
-https://faaydemir.github.io/openai-powered-snippets/
+See snippet editor: https://faaydemir.github.io/openai-powered-snippets/
 
 Here is a YAML sample file:
 ```yaml
