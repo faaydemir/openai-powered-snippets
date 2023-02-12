@@ -1,10 +1,10 @@
 import { getValueWithKey } from "./utils/object";
 
 export default class Command {
-    constructor(name, questionTemplate, handler, description) {
+    constructor(name, promptTemplate, handler, description) {
         this.name = name;
         this.description = description ?? name;
-        this.questionTemplate = questionTemplate;
+        this.promptTemplate = promptTemplate;
         this.handler = handler;
     }
     prepare(systemVariables, userVaribles) {
@@ -12,10 +12,10 @@ export default class Command {
             system: systemVariables,
             user: userVaribles
         };
-        const question = this.questionTemplate.replace(/\{([^}]+)\}/g, (match, key) => {
+        const prompt = this.promptTemplate.replace(/\{([^}]+)\}/g, (match, key) => {
             return getValueWithKey(key, variables);
         });
 
-        return question;
+        return prompt;
     }
 }

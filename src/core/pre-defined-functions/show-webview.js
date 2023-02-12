@@ -1,10 +1,10 @@
 import vsCodeShowWebView from "../../vscode-functions/show-webview";
 
-export default function showWebView({ system: { question, answer, extensionUri } }) {
+export default function showWebView({ system: { prompt, question, answer, extensionUri } }) {
 
-    vsCodeShowWebView(questionAndAnswerHtml, extensionUri);
+    vsCodeShowWebView(promptAndAnswerHtml, extensionUri);
 
-    function questionAndAnswerHtml(webview) {
+    function promptAndAnswerHtml(webview) {
         var vscode = require("vscode");
 
         // Local path to css styles
@@ -26,8 +26,8 @@ export default function showWebView({ system: { question, answer, extensionUri }
                 <title>Cat Coding</title>
             </head>
             <body>
-                <h3>Question</h3>
-                <div>${question}<div/>
+                <h3>Prompt</h3>
+                <div>${prompt ?? question}<div/>
                 <h3>Answer</h3>
                 <div>${answer}<div/>
             </body>

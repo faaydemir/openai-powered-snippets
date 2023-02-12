@@ -23,14 +23,14 @@ export function setOpenAIApiKey(apiKey) {
 }
 
 /**
- * @param  {String} question
+ * @param  {String} prompt
  * @returns {OpenAIAnswer} answer
  */
-export default async function askToOpenAI(question) {
+export default async function askToOpenAI(prompt) {
     try {
         const response = await openai.createCompletion({
             model: "text-davinci-003",
-            prompt: question,
+            prompt: prompt,
             temperature: 0,
             max_tokens: 2048,
             top_p: 1.0,

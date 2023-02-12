@@ -1,6 +1,7 @@
 export const systemVariableNames= {
     selection:"selection",
     question:"question",
+    prompt:"prompt",
     answer:"answer",
     answerCode:"answerCode",
     language:"language",
