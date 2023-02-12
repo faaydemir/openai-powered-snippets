@@ -209,7 +209,7 @@ variables:
 ## Predefined System Function
 | Function Name | Description           | params and default values                         |
 | ------------- | --------------------- | ------------------------------------------------- |
-| append        | Append Text           | textToAppend : system.answer<br> postion :'end'   |
+| append        | Append Text           | textToAppend : system.answer<br> postion :'end'  can be 'start' or 'end' |
 | replace       | Replace selected text | textToReplace : system.answer                     |
 | showWebView   | Show Webview          | prompt: system.prompt<br>answer: system.answer    |
 | writeConsole  | Write text to console | content: system.answer                            |
