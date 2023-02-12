@@ -1,6 +1,4 @@
 # TODO
-* add editor
-   - add editor with better ui
 * modify readme
    - link to create user in open ai
    - link add token 
@@ -16,11 +14,9 @@
 * add license
 * make system variables lazy if possible
 * unit test
-* check if there is a vscode setting type for secrets or key
 * add checks > isKeySet, isFileSet etc
 * make improvements on error handling
 * take user input. use it with {user.input} in template get value from user
-* add position param to append function ??
 * add command handler decorator to
   * handle errors
   * check inputs
@@ -29,12 +25,15 @@
 * make code review
 * snippet filter base on language. if snippet language is js dont't show for py file 
 ## TEST
+* add editor
+   - add editor with better ui
 * enable remote snippet file usage
 * read snippets from folder (read all or add a file contains all snippets snippet/* etc)
 * show process 
     - for loading https://code.visualstudio.com/api/ux-guidelines/status-bar
     - for error https://code.visualstudio.com/api/ux-guidelines/notifications#progress-notification
 ## DONE
+* add position param to append function ??
 * add yaml support
 * implement json import
 * accept string value in command handler args
