@@ -10,6 +10,13 @@ let configuration;
  */
 let openai;
 
+const models = {
+    GPT: "gpt-3.5-turbo",
+    DAVINCI: "text-davinci-003"
+};
+
+let model = models.GPT;
+
 export class OpenAIAnswer {
     constructor(fullText) {
         this.code = fullText + "\n";
@@ -21,12 +28,16 @@ export function setOpenAIApiKey(apiKey) {
     configuration = new Configuration({ apiKey });
     openai = new OpenAIApi(configuration);
 }
+export function setOpenAIModel(openAImodel) {
+    model = openAImodel;
+}
+
 
 /**
  * @param  {String} prompt
  * @returns {OpenAIAnswer} answer
  */
-export default async function askToOpenAI(prompt) {
+export async function askToOpenAIDavinci(prompt) {
     try {
         const response = await openai.createCompletion({
             model: "text-davinci-003",
@@ -43,3 +54,30 @@ export default async function askToOpenAI(prompt) {
     }
 }
 
+/**
+ * @param  {String} prompt
+ * @returns {OpenAIAnswer} answer
+ */
+export async function askToOpenAIGPT(prompt) {
+    try {
+        const response = await openai.createChatCompletion({
+            model: "gpt-3.5-turbo",
+            messages: [
+                { role: "user", content: prompt },
+            ],
+            temperature: 0.7,
+            max_tokens: 2048,
+        });
+        return new OpenAIAnswer(response.data.choices[0].message.content);
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+export default async function askToOpenAI(prompt) {
+    if (model === models.DAVINCI) {
+        return await askToOpenAIDavinci(prompt);
+    } else {
+        return await askToOpenAIGPT(prompt);
+    }
+}
