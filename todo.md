@@ -1,4 +1,6 @@
 # TODO
+* rename as prompt-integrator
+* use gpt 3.5 turbo as model
 * modify readme
    - link to create user in open ai
    - link add token 
