@@ -1,8 +1,8 @@
 {
 	"name": "openaipoweredsnippet",
-	"displayName": "openai(chatgpt) powered snippet",
-	"description": "A Visual Studio Code extension that allows developers to create code snippets using the power of OpenAI",
-	"version": "0.0.19",
+	"displayName": "VS Code ChatGPT Prompt Integrator",
+	"description": "The Visual Studio Code extension enables developers to integrate the ChatGPT prompt into VS Code",
+	"version": "0.0.20",
 	"icon": "media/icon.png",
 	"keywords": [
 		"chatgpt",
@@ -59,6 +59,12 @@
 					"default": "",
 					"description": "Path for user defined snippet files. For multiple path seperate with ';'  C:\\MySnipFolder1;C:\\MySnipFolder2\\snip.js",
 					"order": 2
+				},
+				"openaipoweredsnippet.openAIModel": {
+					"type": "string",
+					"default": "gpt-3.5-turbo",
+					"description": "openai model",
+					"order": 3
 				}
 			}
 		}
