@@ -1,7 +1,6 @@
 export function getActiveDocument() {
 	var vscode = require("vscode");
-	var path = require("path");
-	return vscode.window.activeTextEditor.document;
+	return vscode?.window?.activeTextEditor?.document;
 }
 
 export default function getActiveFileName() {
