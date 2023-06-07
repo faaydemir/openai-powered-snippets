@@ -1,0 +1,43 @@
+name: Create release PR
+
+run-name: Create release PR for new ${{ github.event.inputs.version }} version
+on:
+  push:
+    branches: ["add-create-release-pr-action"]
+
+jobs:
+  create-release-pr:
+    name: Create release PR
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "16"
+      - name: Get version
+        id: check-version
+        uses: actions/github-script@v6
+        env:
+          NEW_VERSION: ${{ github.event.inputs.version }}
+        with:
+          script: |
+            const version = require('./package.json').version;
+            console.log(version);
+            console.log(`NEW_VERSION=${version}`)
+
+      - name: Create pr
+        env:
+          NEW_VERSION: ${{ env.NEW_VERSION }}
+        run: |
+          echo "new_version=${NEW_VERSION}" >> $GITHUB_ENV
+
+          git checkout -b "release/${NEW_VERSION}"
+          git push --set-upstream origin "release/${NEW_VERSION}"
+
+          gh pr create \
+            --title "Release version ${NEW_VERSION}" \
+            --base release \
+            --head "release/${NEW_VERSION}"
