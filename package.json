@@ -2,7 +2,7 @@
 	"name": "openaipoweredsnippet",
 	"displayName": "GPT Prompt Integrator",
 	"description": "The Visual Studio Code extension enables developers to integrate the ChatGPT prompt into VS Code",
-	"version": "0.0.22",
+	"version": "0.0.23",
 	"icon": "media/icon.png",
 	"keywords": [
 		"chatgpt",
