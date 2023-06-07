@@ -10,24 +10,22 @@ import axios from 'axios';
 import * as YAML from 'yaml';
 import getCommandRunnerContext from './command-runner-context';
 import * as fs from 'fs';
+
 export default async function importSnippets(snippetFiles) {
 
 	const allSnipFiles = [
 		...searchForSnipFilesUnderVsCodeFolder(),
 		...getFilesFromConfig(snippetFiles)
 	];
+
 	for (let i = 0; i < allSnipFiles.length; i++) {
-		try {
-			const filePath = allSnipFiles[i].trim();
-			const isDir = fs.lstatSync(filePath).isDirectory();
-			if (isDir) {
-				await importFolder(filePath);
-			}
-			else {
-				await importFile(filePath);
-			}
-		} catch (error) {
-			log.error(error);
+		const filePath = allSnipFiles[i].trim();
+		const isDir = fs.existsSync(filePath) && fs.lstatSync(filePath)?.isDirectory();
+		if (isDir) {
+			await importFolder(filePath).catch(() => {});
+		}
+		else {
+			await importFile(filePath).catch(() => {});
 		}
 	};
 }
