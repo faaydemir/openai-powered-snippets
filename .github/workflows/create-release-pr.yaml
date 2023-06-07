@@ -20,8 +20,6 @@ jobs:
       - name: Get version
         id: check-version
         uses: actions/github-script@v6
-        env:
-          NEW_VERSION: ${{ github.event.inputs.version }}
         with:
           script: |
             const version = require('./package.json').version;
@@ -34,6 +32,7 @@ jobs:
       - name: Create pr
         env:
           NEW_VERSION: ${{ env.NEW_VERSION }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           echo ${NEW_VERSION}
           git checkout -b "release/${NEW_VERSION}"
