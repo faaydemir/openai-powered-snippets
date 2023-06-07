@@ -8,12 +8,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
+      - uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 16.x
+          cache: "npm"
+          registry-url: "https://npm.pkg.github.com"
       - run: npm i
       - name: Publish to Visual Studio Marketplace
-        uses: HaaLeo/publish-vscode-extension@v1
+        uses: HaaLeo/publish-vscode-extension@c1a0486c5a3eed24e8c21d4e37889a7c4c60c443
         with:
           pat: ${{ secrets.VS_MARKETPLACE_PAT }}
           registryUrl: https://marketplace.visualstudio.com
