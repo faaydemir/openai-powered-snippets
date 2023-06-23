@@ -3,7 +3,7 @@ name: Create release PR
 run-name: Create release PR for new ${{ github.event.inputs.version }} version
 on:
   push:
-    branches: ["add-create-release-pr-action"]
+    branches: ["main"]
 
 jobs:
   create-release-pr:
