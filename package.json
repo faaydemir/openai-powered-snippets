@@ -67,6 +67,12 @@
 					"default": "gpt-3.5-turbo",
 					"description": "openai model",
 					"order": 3
+				},
+				"openaipoweredsnippet.baseURL": {
+					"type": "string",
+					"default": "",
+					"description": "Optional base URL for OpenAI-compatible API (e.g. https://openrouter.ai/api/v1 for OpenRouter). Leave empty to use OpenAI.",
+					"order": 4
 				}
 			}
 		}

@@ -24,9 +24,21 @@ export class OpenAIAnswer {
     }
 }
 
-export function setOpenAIApiKey(apiKey) {
-    configuration = new Configuration({ apiKey });
+let basePath;
+
+function rebuildClient(apiKey) {
+    configuration = new Configuration({ apiKey, basePath });
     openai = new OpenAIApi(configuration);
+}
+
+let currentApiKey;
+export function setOpenAIApiKey(apiKey) {
+    currentApiKey = apiKey;
+    rebuildClient(apiKey);
+}
+export function setOpenAIBaseURL(url) {
+    basePath = url || undefined;
+    rebuildClient(currentApiKey);
 }
 export function setOpenAIModel(openAImodel) {
     model = openAImodel;
@@ -61,7 +73,7 @@ export async function askToOpenAIDavinci(prompt) {
 export async function askToOpenAIGPT(prompt) {
     try {
         const response = await openai.createChatCompletion({
-            model: "gpt-3.5-turbo",
+            model: model,
             messages: [
                 { role: "user", content: prompt },
             ],

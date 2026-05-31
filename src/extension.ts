@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 import Variable from './core/variable';
 import getCommandRunnerContext, { CommandRunnerContext } from './core/command-runner-context';
-import { setOpenAIApiKey, setOpenAIModel } from './core/openai-client';
+import { setOpenAIApiKey, setOpenAIModel, setOpenAIBaseURL } from './core/openai-client';
 import GenericWebViewPanel from './vscode-functions/webview-panel';
 import importSnippets from './core/importSnippets';
 import getSelectedText from './vscode-functions/get-selected-text';
@@ -30,6 +30,7 @@ export async function activate(context: vscode.ExtensionContext) {
 	const config = initConfiguration();
 	//TODO: make baseFolder lazy
 	initSnippetSystemVariables();
+	setOpenAIBaseURL(config.get('baseURL'));
 	setOpenAIApiKey(config.get('openAIToken'));
 	setOpenAIModel(config.get('openAIModel'));
 
