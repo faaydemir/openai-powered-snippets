@@ -53,7 +53,7 @@
 				"openaipoweredsnippet.openAIToken": {
 					"type": "string",
 					"default": "",
-					"description": "Your openai token",
+					"description": "API key (OpenAI, OpenRouter, or any OpenAI-compatible provider)",
 					"order": 1
 				},
 				"openaipoweredsnippet.snippetFiles": {
@@ -64,8 +64,8 @@
 				},
 				"openaipoweredsnippet.openAIModel": {
 					"type": "string",
-					"default": "gpt-3.5-turbo",
-					"description": "openai model",
+					"default": "gpt-5-mini",
+					"description": "Model name. Examples: gpt-5-mini (OpenAI); anthropic/claude-sonnet-4.5 (OpenRouter).",
 					"order": 3
 				},
 				"openaipoweredsnippet.baseURL": {
