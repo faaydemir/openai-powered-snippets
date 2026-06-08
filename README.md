@@ -7,11 +7,16 @@ A Visual Studio Code extension that allows developers to create code snippets us
 
 ## Usage
 
-* Get a OpenAI API key from https://platform.openai.com/account/api-keys
+* Get an API key — from OpenAI (https://platform.openai.com/account/api-keys) or any OpenAI-compatible provider such as OpenRouter (https://openrouter.ai/keys).
 * Create snippet file contains prompts, variable and functions.
 * Set your API key and snippet files path in the extension VSCode settings `File>Preferences>Settings>Extensions>OpenAI Powered Snippets`
 ![settings](/media/settings.png)
 * In the editor, left-click and select "Run OpenAI Snippet" or use the keyboard shortcut Ctrl+O+A.
+
+### Using OpenRouter (or any OpenAI-compatible provider)
+* Set `Base URL` to `https://openrouter.ai/api/v1`
+* Put your OpenRouter key in the `API Key` setting
+* Set `Model` to an OpenRouter model id, e.g. `anthropic/claude-sonnet-4.5`
 
 # Snippet Files
 To use prompts you need create snippet and set path in vscode settings.
@@ -24,6 +29,7 @@ these all valid for path settings:
  * C:\snippet_file_folder
  * C:\snippet_file_folder\name_of_snippet.yaml
  * https://remote_address/name_of_snippet.yaml
+ * https://gist.githubusercontent.com/&lt;user&gt;/&lt;id&gt;/raw/snippet.yaml (raw GitHub Gist URL)
  
 
 See sample files : https://github.com/faaydemir/openai-powered-snippets/tree/main/sample-snippet-files

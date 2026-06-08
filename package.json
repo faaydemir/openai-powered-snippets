@@ -53,20 +53,26 @@
 				"openaipoweredsnippet.openAIToken": {
 					"type": "string",
 					"default": "",
-					"description": "Your openai token",
+					"description": "API key (OpenAI, OpenRouter, or any OpenAI-compatible provider)",
 					"order": 1
 				},
 				"openaipoweredsnippet.snippetFiles": {
 					"type": "string",
 					"default": "",
-					"description": "Path for user defined snippet files. For multiple path seperate with ';'  C:\\MySnipFolder1;C:\\MySnipFolder2\\snip.js",
+					"description": "Path(s) or URL(s) to snippet files. Local path, folder, HTTP URL, or raw GitHub Gist URL. Separate multiple with ';'.",
 					"order": 2
 				},
 				"openaipoweredsnippet.openAIModel": {
 					"type": "string",
-					"default": "gpt-3.5-turbo",
-					"description": "openai model",
+					"default": "gpt-5-mini",
+					"description": "Model name. Examples: gpt-5-mini (OpenAI); anthropic/claude-sonnet-4.5 (OpenRouter).",
 					"order": 3
+				},
+				"openaipoweredsnippet.baseURL": {
+					"type": "string",
+					"default": "",
+					"description": "Optional base URL for OpenAI-compatible API (e.g. https://openrouter.ai/api/v1 for OpenRouter). Leave empty to use OpenAI.",
+					"order": 4
 				}
 			}
 		}
