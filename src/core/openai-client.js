@@ -37,7 +37,7 @@ export function setOpenAIApiKey(apiKey) {
     rebuildClient(apiKey);
 }
 export function setOpenAIBaseURL(url) {
-    basePath = url || undefined;
+    basePath = url?.replace(/\/+$/, "") || undefined;
     rebuildClient(currentApiKey);
 }
 export function setOpenAIModel(openAImodel) {
