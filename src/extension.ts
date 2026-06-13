@@ -113,14 +113,20 @@ let extensionConfig: { [key: string]: string | undefined; } = {};
 function initConfiguration() {
 
 	vscode.workspace.onDidChangeConfiguration((event: vscode.ConfigurationChangeEvent) => {
-		if (event.affectsConfiguration('"openaipoweredsnippet.openAIToken')) {
-			const config = vscode.workspace.getConfiguration('openaipoweredsnippet');
+		const config = vscode.workspace.getConfiguration('openaipoweredsnippet');
+		if (event.affectsConfiguration('openaipoweredsnippet.openAIToken')) {
 			setOpenAIApiKey(config.get('openAIToken') as string | undefined);
 			if (!config.get('openAIToken')) {
 				log.error("Open AI api key required");
 			}
-		} else if (event.affectsConfiguration('openaipoweredsnippet.snippetFiles')) {
-			const config = vscode.workspace.getConfiguration('openaipoweredsnippet');
+		}
+		if (event.affectsConfiguration('openaipoweredsnippet.openAIModel')) {
+			setOpenAIModel(config.get('openAIModel') as string | undefined);
+		}
+		if (event.affectsConfiguration('openaipoweredsnippet.baseURL')) {
+			setOpenAIBaseURL(config.get('baseURL') as string | undefined);
+		}
+		if (event.affectsConfiguration('openaipoweredsnippet.snippetFiles')) {
 			importSnippets(config.get('snippetFiles'));
 			if (!config.get('snippetFiles')) {
 				log.error("SnippetFile key required");

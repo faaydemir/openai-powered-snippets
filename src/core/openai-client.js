@@ -37,11 +37,26 @@ export function setOpenAIApiKey(apiKey) {
     rebuildClient(apiKey);
 }
 export function setOpenAIBaseURL(url) {
-    basePath = url || undefined;
+    basePath = url?.replace(/\/+$/, "") || undefined;
     rebuildClient(currentApiKey);
 }
 export function setOpenAIModel(openAImodel) {
     model = openAImodel;
+}
+
+function getErrorDetail(error) {
+    const responseError = error?.response?.data?.error;
+    const message = responseError?.message || error?.response?.data?.message || error?.message;
+    const code = responseError?.code || error?.code;
+    const status = error?.response?.status;
+    const details = [status && `HTTP ${status}`, code, message].filter(Boolean);
+
+    return details.join(" - ") || "Unknown provider error";
+}
+
+function throwProviderError(error) {
+    console.error(error);
+    throw new Error(`AI provider request failed: ${getErrorDetail(error)}`);
 }
 
 
@@ -62,7 +77,7 @@ export async function askToOpenAIDavinci(prompt) {
         });
         return new OpenAIAnswer(response.data.choices[0].text);
     } catch (error) {
-        console.error(error);
+        throwProviderError(error);
     }
 }
 
@@ -82,7 +97,7 @@ export async function askToOpenAIGPT(prompt) {
         });
         return new OpenAIAnswer(response.data.choices[0].message.content);
     } catch (error) {
-        console.error(error);
+        throwProviderError(error);
     }
 }
 
